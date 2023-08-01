@@ -17,26 +17,22 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="7.0.9" />
+    <PackageReference Include="NetLoggings" Version="1.0.0" />
     <PackageReference Include="NetXceptions" Version="2.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Brokers\Storages\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Migrations\" />
     <Folder Include="Models\Configurations\" />
     <Folder Include="Models\DTOs\Authentications\" />
     <Folder Include="Models\DTOs\Users\" />
     <Folder Include="Models\Exceptions\Authentications\" />
     <Folder Include="Models\Exceptions\Users\" />
-    <Folder Include="Models\Exceptions\Roles\" />
     <Folder Include="Services\Foundations\Authentications\" />
     <Folder Include="Services\Foundations\Users\" />
-    <Folder Include="Services\Foundations\Roles\" />
     <Folder Include="Services\Orchestrations\" />
     <Folder Include="Services\Processings\Authentications\" />
-    <Folder Include="Services\Processings\Roles\" />
     <Folder Include="Services\Processings\Users\" />
   </ItemGroup>
 
