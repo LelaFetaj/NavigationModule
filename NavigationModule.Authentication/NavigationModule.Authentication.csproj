@@ -6,4 +6,44 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="7.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions" Version="7.0.9" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Brokers\Managements\Roles\" />
+    <Folder Include="Brokers\Managements\Users\" />
+    <Folder Include="Brokers\Storages\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Infrastructures\Extensions\Collections\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Models\Configurations\" />
+    <Folder Include="Models\DTOs\Authentications\" />
+    <Folder Include="Models\DTOs\Users\" />
+    <Folder Include="Models\Entities\Users\" />
+    <Folder Include="Models\Entities\Roles\" />
+    <Folder Include="Models\Exceptions\Authentications\" />
+    <Folder Include="Models\Exceptions\Common\" />
+    <Folder Include="Models\Exceptions\Users\" />
+    <Folder Include="Models\Exceptions\Roles\" />
+    <Folder Include="Models\Filters\" />
+    <Folder Include="Services\Foundations\Authentications\" />
+    <Folder Include="Services\Foundations\Users\" />
+    <Folder Include="Services\Foundations\Roles\" />
+    <Folder Include="Services\Orchestrations\" />
+    <Folder Include="Services\Processings\Authentications\" />
+    <Folder Include="Services\Processings\Roles\" />
+    <Folder Include="Services\Processings\Users\" />
+  </ItemGroup>
+
 </Project>
