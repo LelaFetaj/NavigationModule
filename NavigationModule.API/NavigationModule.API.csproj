@@ -27,9 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Extensions\" />
-    <Folder Include="Infrastructure\Providers\" />
     <Folder Include="logs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NavigationModule.Authentication\NavigationModule.Authentication.csproj" />
   </ItemGroup>
 
 </Project>
