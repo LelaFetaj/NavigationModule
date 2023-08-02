@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigationModule.API", "NavigationModule.API\NavigationModule.API.csproj", "{EEAD2BC1-03DF-4606-A484-F49D07E7939D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationModule.Authentication", "NavigationModule.Authentication\NavigationModule.Authentication.csproj", "{938173D9-5A92-44FE-A80C-15C58E8A3FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigationModule.Authentication", "NavigationModule.Authentication\NavigationModule.Authentication.csproj", "{938173D9-5A92-44FE-A80C-15C58E8A3FCE}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7991AA9A-D010-4308-BF45-B7AC58D6BE2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{938173D9-5A92-44FE-A80C-15C58E8A3FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{938173D9-5A92-44FE-A80C-15C58E8A3FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{938173D9-5A92-44FE-A80C-15C58E8A3FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7991AA9A-D010-4308-BF45-B7AC58D6BE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7991AA9A-D010-4308-BF45-B7AC58D6BE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7991AA9A-D010-4308-BF45-B7AC58D6BE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7991AA9A-D010-4308-BF45-B7AC58D6BE2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

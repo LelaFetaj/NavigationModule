@@ -26,7 +26,7 @@ namespace NavigationModule.Authentication.Brokers.Storages
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = this.configuration
-                .GetConnectionString(name: "DefaultConnection");
+                .GetConnectionString(name: "AuthenticationConnection");
 
             optionsBuilder.UseNpgsql(connectionString);
         }

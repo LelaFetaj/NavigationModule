@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  navigationmoduleapi:
+    image: ${DOCKER_REGISTRY-}navigationmoduleapi
+    build:
+      context: .
+      dockerfile: NavigationModule.API/Dockerfile
+    depends_on:
+    - npgdata
+    networks:
+    - custom
+
+  npgdata:
+    container_name: postgresql
+    image: postgres:latest
+    networks:
+    - custom
+
+
+volumes:
+  npg-data:
+    external: false
+
+networks:
+  custom:
+    driver: bridge
+    external: false
+    name: custom

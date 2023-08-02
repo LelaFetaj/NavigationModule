@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  navigationmoduleapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__AuthenticationConnection=Server=npgdata;Port=5432;Database=AuthenticationDb;User Id=postgres;Password=lela1234
+    ports:
+      - '5080:80'
+      #- '5443:443'
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  npgdata:
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=lela1234
+      - PGDATA:/tmp
+    ports:
+      - "5433:5432"
+    volumes:
+      - npg-data:/var/lib/postgresql/data
