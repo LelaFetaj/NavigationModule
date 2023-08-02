@@ -25,15 +25,6 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Models\Configurations\" />
-    <Folder Include="Models\DTOs\Authentications\" />
-    <Folder Include="Models\DTOs\Users\" />
-    <Folder Include="Models\Exceptions\Authentications\" />
-    <Folder Include="Models\Exceptions\Users\" />
-    <Folder Include="Services\Foundations\Authentications\" />
-    <Folder Include="Services\Foundations\Users\" />
-    <Folder Include="Services\Orchestrations\" />
-    <Folder Include="Services\Processings\Authentications\" />
-    <Folder Include="Services\Processings\Users\" />
   </ItemGroup>
 
 </Project>
