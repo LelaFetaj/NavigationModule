@@ -80,11 +80,21 @@ namespace NavigationModule.Authentication.Services.Foundations.Users
             {
                 ValidateUserIsNull(user);
                 ValidateRoleName(roleName);
-                
+
                 IdentityResult result =
                     await this.userManagerBroker.AddToRoleAsync(user, roleName);
 
                 return result.Succeeded;
+            });
+
+        public ValueTask<string> RetreiveUserRoleAsync(User user) =>
+            TryCatch(async () =>
+            {
+                ValidateUserIsNull(user);
+
+                var roles = await this.userManagerBroker.GetUserRoles(user);
+
+                return roles.FirstOrDefault();
             });
     }
 }

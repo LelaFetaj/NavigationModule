@@ -10,6 +10,7 @@ namespace NavigationModule.Authentication.Services.Foundations.Users
     {
         private delegate ValueTask<User> ReturningUserFunction();
         private delegate ValueTask<bool> ReturningBoolFunction();
+        private delegate ValueTask<string> ReturningStringFunction();
         private delegate ValueTask<List<User>> ReturningUserListFunction();
 
         private async ValueTask<User> TryCatch(ReturningUserFunction returningUserFunction)
@@ -117,6 +118,27 @@ namespace NavigationModule.Authentication.Services.Foundations.Users
             try
             {
                 return await returningUserListFunction();
+            }
+            catch (NpgsqlException npgsqlException)
+            {
+                throw CreateAndLogServiceException(npgsqlException);
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                throw CreateAndLogServiceException(dbUpdateException);
+            }
+            catch (Exception exception)
+                when (exception is not NetXception)
+            {
+                throw CreateAndLogServiceException(exception);
+            }
+        }
+
+        private async ValueTask<string> TryCatch(ReturningStringFunction returningStringFunction)
+        {
+            try
+            {
+                return await returningStringFunction();
             }
             catch (NpgsqlException npgsqlException)
             {

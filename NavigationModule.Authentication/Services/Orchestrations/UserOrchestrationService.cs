@@ -38,9 +38,12 @@ namespace NavigationModule.Authentication.Services.Orchestrations
 
             await this.authenticationProcessingService.IsPasswordCorrect(user, loginRequest.Password);
 
+            string userRole = await this.userProcessingService.RetrieveUserRoleAsync(user);
+
             return new AuthenticatedResponse
             {
-                AuthenticationToken = this.authenticationProcessingService.GenerateJwtToken(user)
+                AuthenticationToken =
+                    this.authenticationProcessingService.GenerateJwtToken(user, userRole)
             };
         }
 
@@ -65,7 +68,7 @@ namespace NavigationModule.Authentication.Services.Orchestrations
             Role role =
                 await this.roleProcessingService.RetrieveRoleByNameAsync(registerRequest.RoleName);
 
-            if (role is not null)
+            if (role is null)
             {
                 throw new NotFoundRoleException(registerRequest.RoleName);
             }
@@ -75,7 +78,7 @@ namespace NavigationModule.Authentication.Services.Orchestrations
 
             return new AuthenticatedResponse
             {
-                AuthenticationToken = this.authenticationProcessingService.GenerateJwtToken(user)
+                AuthenticationToken = this.authenticationProcessingService.GenerateJwtToken(user, role.Name)
             };
         }
     }

@@ -13,6 +13,7 @@ namespace NavigationModule.Authentication.Services.Processings.Users
             bool orderByDesceding = true);
         ValueTask<User> RetrieveUserByUsernameAsync(string username);
         ValueTask<User> RetrieveUserByEmailAsync(string email);
+        ValueTask<string> RetrieveUserRoleAsync(User user);
         ValueTask<User> ModifyUserAsync(ModifyUserRequest modifyUserRequest);
         ValueTask<User> RemoveUserByIdAsync(Guid userId);
     }

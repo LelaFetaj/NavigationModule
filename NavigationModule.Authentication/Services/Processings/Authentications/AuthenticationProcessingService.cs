@@ -1,6 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NavigationModule.Authentication.Models.Entities.Users;
 using NavigationModule.Authentication.Services.Foundations.Authentications;
@@ -10,20 +12,27 @@ namespace NavigationModule.Authentication.Services.Processings.Authentications
     sealed class AuthenticationProcessingService : IAuthenticationProcessingService
     {
         private readonly IAuthenticationService authenticationService;
-        private const string privateKey = "ask##dljasl!#5sd#!!!2356477<>lojgjasd!123";
-        public AuthenticationProcessingService(IAuthenticationService authenticationService)
+        private readonly string privateKey;
+
+        public AuthenticationProcessingService(
+            IAuthenticationService authenticationService,
+            IConfiguration configuration)
         {
             this.authenticationService = authenticationService;
+            this.privateKey = configuration["AuthConfiguration:SigningKey"];
         }
 
         public async ValueTask<bool> IsPasswordCorrect(User user, string password) =>
             await this.authenticationService.IsPasswordCorrect(user, password);
 
-        public string GenerateJwtToken(User user)
+        public string GenerateJwtToken(User user, string role)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(type: ClaimTypes.NameIdentifier,value: user.Id.ToString()),
+                new Claim(ClaimTypes.Role,JsonSerializer.Serialize(new List<string> { role }))
             };
 
             var securityKey = new SymmetricSecurityKey(
@@ -39,7 +48,6 @@ namespace NavigationModule.Authentication.Services.Processings.Authentications
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);

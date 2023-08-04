@@ -77,6 +77,9 @@ namespace NavigationModule.Authentication.Services.Processings.Users
         public async ValueTask<User> RetrieveUserByEmailAsync(string email) =>
             await this.userService.RetreiveUserByEmailAsync(email);
 
+        public async ValueTask<string> RetrieveUserRoleAsync(User user) =>
+            await this.userService.RetreiveUserRoleAsync(user);
+
         public async ValueTask<User> ModifyUserAsync(ModifyUserRequest modifyUserRequest)
         {
             ValidateUserRequest(modifyUserRequest);

@@ -16,5 +16,6 @@ namespace NavigationModule.Authentication.Services.Foundations.Users
         ValueTask<User> ModifyUserAsync(User user);
         ValueTask<User> RemoveUserByIdAsync(Guid userId);
         ValueTask<bool> AssignUserRole(User user, string roleName);
+        ValueTask<string> RetreiveUserRoleAsync(User user);
     }
 }

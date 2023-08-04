@@ -41,6 +41,17 @@ namespace NavigationModule.Authentication.Brokers.Storages
                     .HasIndex(prop => prop.BirthDate)
                     .IsDescending();
             });
+
+            List<Role> roles = new()
+            { 
+                new Role { Name = "Admin", Id = Guid.NewGuid()},
+                new Role { Name = "User" , Id = Guid.NewGuid()}
+            };
+
+            modelBuilder.Entity<Role>(action =>
+            {
+                action.HasData(roles);
+            });
         }
     }
 }
