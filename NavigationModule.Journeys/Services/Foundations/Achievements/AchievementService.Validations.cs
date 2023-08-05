@@ -15,16 +15,9 @@ namespace NavigationModule.Journeys.Services.Foundations.Achievements
 
             invalidAchievementException.Validate(
                 (Rule: ModelValidator.IsInvalid(achievement.UserId, nameof(Achievement.UserId)), Parameter: nameof(Achievement.UserId)),
-                (Rule: IsInvalid(achievement.DailyDistance, nameof(Achievement.DailyDistance)), Parameter: nameof(Achievement.DailyDistance)),
                 (Rule: ModelValidator.IsInvalid(achievement.UpdatedDate, nameof(Achievement.UpdatedDate)), Parameter: nameof(Achievement.UpdatedDate))
                 );
         }
-
-        private static dynamic IsInvalid(double value, string fieldName) => new
-        {
-            Condition = value <= 0,
-            Message = $"{fieldName} is required."
-        };
 
         private static void ValidateAchievementIsNull(Achievement achievement)
         {

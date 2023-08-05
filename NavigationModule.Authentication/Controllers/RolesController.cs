@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NavigationModule.Authentication.Infrastructures.Authorizations;
+using NavigationModule.Authentication.Models.DTOs.Roles;
 using NavigationModule.Authentication.Models.Entities.Roles;
 using NavigationModule.Authentication.Services.Processings.Roles;
 
@@ -20,8 +21,8 @@ namespace NavigationModule.Authentication.Controllers
 
         [Authorization(AuthorizationType.All, "Admin")]
         [HttpPost]
-        public async ValueTask<ActionResult<Role>> CreateRole([FromBody] string roleName) =>
-            Ok(await this.roleProcessingService.AddRoleAsync(roleName));
+        public async ValueTask<ActionResult<Role>> CreateRole(RoleRequest roleRequest) =>
+            Ok(await this.roleProcessingService.AddRoleAsync(roleRequest.Name));
 
         [HttpGet]
         public async ValueTask<ActionResult<Role>> RetrieveAllRoles(

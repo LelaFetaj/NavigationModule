@@ -43,9 +43,19 @@ namespace NavigationModule.Authentication.Brokers.Storages
             });
 
             List<Role> roles = new()
-            { 
-                new Role { Name = "Admin", Id = Guid.NewGuid()},
-                new Role { Name = "User" , Id = Guid.NewGuid()}
+            {
+                new Role {
+                    Name = "Admin",
+                    Id = Guid.NewGuid(),
+                    NormalizedName = "ADMIN",
+                    ConcurrencyStamp = Guid.NewGuid().ToString()
+                },
+                new Role { 
+                    Name = "User" , 
+                    Id = Guid.NewGuid(),
+                    NormalizedName = "USER",
+                    ConcurrencyStamp = Guid.NewGuid().ToString()
+                }
             };
 
             modelBuilder.Entity<Role>(action =>

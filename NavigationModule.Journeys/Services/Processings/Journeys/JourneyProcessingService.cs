@@ -28,6 +28,7 @@ namespace NavigationModule.Journeys.Services.Processings.Journeys
 
             var journey = new Journey
             {
+                Id = Guid.NewGuid(),
                 UserId = userId,
                 Distance = journeyRequest.Distance,
                 StartingDate = journeyRequest.StartingDate,
@@ -76,7 +77,7 @@ namespace NavigationModule.Journeys.Services.Processings.Journeys
             int pagesize = 0,
             bool orderByDescending = true)
         {
-            Expression<Func<Journey, bool>> searchCondition = journey => 
+            Expression<Func<Journey, bool>> searchCondition = journey =>
                 string.IsNullOrWhiteSpace(userId) || journey.UserId == userId;
 
             var pagination = new Pagination<Journey, DateTimeOffset>
@@ -112,9 +113,9 @@ namespace NavigationModule.Journeys.Services.Processings.Journeys
         {
             Expression<Func<Journey, bool>> searchCondition = journey =>
                 (string.IsNullOrWhiteSpace(filters.UserId) || journey.UserId == filters.UserId)
-                && journey.ArrivalDate.Year == filters.Year 
+                && journey.ArrivalDate.Year == filters.Year
                 && journey.ArrivalDate.Month == (int)filters.Month;
-            
+
             var pagination = new Pagination<UserStats, double>
             {
                 OrderBy = x => x.TotalDistance,
@@ -123,7 +124,7 @@ namespace NavigationModule.Journeys.Services.Processings.Journeys
                 OrderByDescending = filters.OrderByDesceding,
             };
 
-            List<UserStats> userStats = 
+            List<UserStats> userStats =
                 await this.journeyService.RetrieveJourneyStatsAsync(searchCondition, pagination);
 
             if (userStats is null || userStats.Count <= 0)

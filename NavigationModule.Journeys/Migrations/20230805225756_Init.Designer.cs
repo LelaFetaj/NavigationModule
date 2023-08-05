@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NavigationModule.Journeys.Migrations
 {
     [DbContext(typeof(StorageBroker))]
-    [Migration("20230805221750_Init")]
+    [Migration("20230805225756_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -51,8 +51,9 @@ namespace NavigationModule.Journeys.Migrations
 
             modelBuilder.Entity("NavigationModule.Journeys.Models.Entities.Journeys.Journey", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("ArrivalDate")
                         .HasColumnType("timestamp with time zone");

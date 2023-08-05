@@ -31,7 +31,7 @@ namespace NavigationModule.Journeys.Migrations
                 name: "Journeys",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     Distance = table.Column<double>(type: "double precision", nullable: false),
                     StartingDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),

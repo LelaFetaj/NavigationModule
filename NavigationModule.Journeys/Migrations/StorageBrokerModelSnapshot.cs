@@ -48,8 +48,9 @@ namespace NavigationModule.Journeys.Migrations
 
             modelBuilder.Entity("NavigationModule.Journeys.Models.Entities.Journeys.Journey", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("ArrivalDate")
                         .HasColumnType("timestamp with time zone");

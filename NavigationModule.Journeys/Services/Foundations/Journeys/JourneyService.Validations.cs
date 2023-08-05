@@ -1,6 +1,7 @@
 ﻿using Journeys.API.Models.Entities.Waypoints;
 using NavigationModule.Journeys.Models.Entities.Journeys;
 using NavigationModule.Journeys.Models.Exceptions.Journeys;
+using NetXceptions.Validations;
 
 namespace NavigationModule.Journeys.Services.Foundations.Journeys
 {
@@ -10,38 +11,24 @@ namespace NavigationModule.Journeys.Services.Foundations.Journeys
         {
             ValidateJourneyIsNull(journey);
 
-            if (journey.ArrivalPoint != null)
-            {
-                Validate(
-                    (Rule: IsInvalid(journey.Id, nameof(Journey.Id)),
-                        Parameter: nameof(Journey.Id)),
-                    (Rule: IsInvalid(journey.UserId, nameof(Journey.UserId)),
-                        Parameter: nameof(Journey.UserId)),
-                    (Rule: IsInvalid(journey.Distance, nameof(Journey.Distance)),
-                        Parameter: nameof(Journey.Distance)),
-                    (Rule: IsInvalid(journey.StartingDate, nameof(Journey.StartingDate)),
-                        Parameter: nameof(Journey.StartingDate)),
-                    (Rule: IsInvalid(journey.ArrivalDate, nameof(Journey.ArrivalDate)),
-                        Parameter: nameof(Journey.ArrivalDate)),
-                    (Rule: IsInvalid(journey.StartingPoint, nameof(Journey.StartingPoint)),
-                        Parameter: nameof(Journey.StartingPoint)),
-                    (Rule: IsInvalid(journey.ArrivalPoint, nameof(Journey.ArrivalPoint)),
-                        Parameter: nameof(Journey.ArrivalPoint))
-                );
-            }
-            else
-            {
-                Validate(
-                    (Rule: IsInvalid(journey.Id, nameof(Journey.Id)),
-                        Parameter: nameof(Journey.Id)),
-                    (Rule: IsInvalid(journey.UserId, nameof(Journey.UserId)),
-                        Parameter: nameof(Journey.UserId)),
-                    (Rule: IsInvalid(journey.StartingDate, nameof(Journey.StartingDate)),
-                        Parameter: nameof(Journey.StartingDate)),
-                    (Rule: IsInvalid(journey.StartingPoint, nameof(Journey.StartingPoint)),
-                        Parameter: nameof(Journey.StartingPoint))
-                );
-            }
+            var invalidJourneyException = new InvalidJourneyException();
+
+            invalidJourneyException.Validate(
+                (Rule: ModelValidator.IsInvalid(journey.Id, nameof(Journey.Id)),
+                    Parameter: nameof(Journey.Id)),
+                (Rule: ModelValidator.IsInvalid(journey.UserId, nameof(Journey.UserId)),
+                    Parameter: nameof(Journey.UserId)),
+                (Rule: ModelValidator.IsInvalid(journey.StartingDate, nameof(Journey.StartingDate)),
+                    Parameter: nameof(Journey.StartingDate)),
+                (Rule: ModelValidator.IsInvalid(journey.ArrivalDate, nameof(Journey.ArrivalDate)),
+                    Parameter: nameof(Journey.ArrivalDate)),
+                (Rule: ModelValidator.IsInvalid(journey.StartingPoint, nameof(Journey.StartingPoint)),
+                    Parameter: nameof(Journey.StartingPoint)),
+                (Rule: ModelValidator.IsInvalid(journey.ArrivalPoint, nameof(Journey.ArrivalPoint)),
+                    Parameter: nameof(Journey.ArrivalPoint))
+            );
+
+            invalidJourneyException.ThrowIfContainsErrors();
         }
 
         private static void ValidateJourneyId(Guid journeyId)
@@ -68,63 +55,6 @@ namespace NavigationModule.Journeys.Services.Foundations.Journeys
             {
                 throw new NotFoundJourneyException(journeyId);
             }
-        }
-
-        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
-        {
-            var invalidJourneyException = new InvalidJourneyException();
-
-            foreach ((dynamic rule, string parameter) in validations)
-            {
-                if (rule.Condition)
-                {
-                    invalidJourneyException.UpsertDataList(
-                        key: parameter,
-                        value: rule.Message);
-                }
-            }
-
-            invalidJourneyException.ThrowIfContainsErrors();
-        }
-
-        private static dynamic IsInvalid(string value, string fieldName) => new
-        {
-            Condition = string.IsNullOrWhiteSpace(value),
-            Message = $"{fieldName} is required."
-        };
-
-        private static dynamic IsInvalid(DateTimeOffset value, string fieldName) => new
-        {
-            Condition = value == default,
-            Message = $"{fieldName} is required."
-        };
-
-        private static dynamic IsInvalid(double value, string fieldName) => new
-        {
-            Condition = value <= 0,
-            Message = $"{fieldName} is required."
-        };
-
-        private static dynamic IsInvalid(StartingPoint waypoint, string fieldName) => new
-        {
-            Condition = waypoint is null || ValidateWaypoint(waypoint),
-            Message = $"{fieldName} is required."
-        };
-
-        private static dynamic IsInvalid(ArrivalPoint waypoint, string fieldName) => new
-        {
-            Condition = waypoint is null || ValidateWaypoint(waypoint),
-            Message = $"{fieldName} is required."
-        };
-
-        private static bool ValidateWaypoint(StartingPoint waypoint)
-        {
-            return waypoint.Latitude == 0 || waypoint.Longitude == 0;
-        }
-
-        private static bool ValidateWaypoint(ArrivalPoint waypoint)
-        {
-            return waypoint.Latitude == 0 || waypoint.Longitude == 0;
         }
     }
 }

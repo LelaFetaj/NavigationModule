@@ -29,7 +29,7 @@ namespace NavigationModule.Authentication.Infrastructures.Authorizations
 
             string[] providedRoles = DeserializeValueFromType(
                 claims,
-                claimType: ClaimTypes.Role);
+                claimType: "role");
 
             if (providedRoles is null)
             {

@@ -8,7 +8,6 @@ namespace NavigationModule.Journeys.Services.Foundations.Journeys
     public partial class JourneyService
     {
         private delegate ValueTask<Journey> ReturningJourneyFunction();
-        private delegate ValueTask<bool> ReturningBoolFunction();
         private delegate ValueTask<(List<Journey>, long count)> ReturningJourneysFunction();
         private delegate ValueTask<List<UserStats>> ReturningUserStatsFunction();
 
@@ -34,22 +33,6 @@ namespace NavigationModule.Journeys.Services.Foundations.Journeys
             try
             {
                 return await returningJourneyFunction();
-            }
-            catch (PostgresException postgresException)
-            {
-                throw CreateAndLogServiceException(postgresException);
-            }
-            catch (Exception exception)
-            {
-                throw CreateAndLogServiceException(exception);
-            }
-        }
-
-        private async ValueTask<bool> TryCatch(ReturningBoolFunction returningBoolFunction)
-        {
-            try
-            {
-                return await returningBoolFunction();
             }
             catch (PostgresException postgresException)
             {
