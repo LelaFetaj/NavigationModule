@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text.Json;
 
 namespace NavigationModule.Authentication.Infrastructures.Authorizations
@@ -17,7 +11,6 @@ namespace NavigationModule.Authentication.Infrastructures.Authorizations
     public class AuthorizationFilter : IAuthorizationFilter
     {
         private readonly AuthorizationType authorizationType;
-        private readonly IConfiguration configuration;
         private readonly IEnumerable<string> roleClaims;
 
         public AuthorizationFilter(

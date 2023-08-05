@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using NavigationModule.Journeys.Infrastructure.CollectionExtentions;
 using NavigationModule.Journeys.Models.DTOs.Filters;
+using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;
 using System.Linq.Expressions;
 
@@ -37,6 +38,27 @@ namespace NavigationModule.Journeys.Brokers.Storages
                     .PageBy(pagination)
                     .ToListAsync(),
                 count);
+        }
+        
+        public async ValueTask<List<UserStats>> SelectJourneyStatsAsync(
+            Expression<Func<Journey, bool>> searchCondition,
+            Pagination<UserStats, double> pagination)
+        {
+            using var broker = new StorageBroker(this.configuration);
+            broker.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+            IQueryable<Journey> journeys = broker.Journeys.Where(searchCondition);
+
+            return await journeys
+                .GroupBy(x => x.UserId)
+                .Select(group => new UserStats
+                {
+                    UserId = group.Key,
+                    JourneyCount = group.Count(),
+                    TotalDistance = group.Sum(x => x.Distance)
+                })
+                .PageBy(pagination)
+                .ToListAsync();
         }
 
         public async ValueTask<Journey> SelectJourneyByFilterAsync(

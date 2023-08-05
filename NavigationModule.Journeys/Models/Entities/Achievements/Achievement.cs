@@ -11,7 +11,7 @@ namespace NavigationModule.Journeys.Models.Entities.Achievements
         public Guid Id { get; set; }
         public string UserId { get; set; }
         public bool IsRewarded { get; set; }
-        public DateTimeOffset? RewardDate { get; set; }
+        public DateTimeOffset UpdatedDate { get; set; }
         public double DailyDistance { get; set; }
     }
 }

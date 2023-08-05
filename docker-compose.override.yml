@@ -6,6 +6,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__AuthenticationConnection=Server=npgdata;Port=5432;Database=AuthenticationDb;User Id=postgres;Password=lela1234
+      - ConnectionStrings__JourneyConnection=Server=npgdata;Port=5432;Database=JourneyDb;User Id=postgres;Password=lela1234
     ports:
       - '5080:80'
       #- '5443:443'

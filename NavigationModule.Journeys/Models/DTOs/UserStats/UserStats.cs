@@ -10,6 +10,7 @@ namespace NavigationModule.Journeys.Models.DTOs.UserStats
     {
         public string UserId { get; set; }
         public double TotalDistance {  get; set; }
+        public double JourneyCount { get; set; }
 
     }
 }

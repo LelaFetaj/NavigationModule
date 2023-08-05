@@ -1,11 +1,6 @@
 ﻿using Journeys.API.Models.Entities.Waypoints;
 using NavigationModule.Journeys.Models.Entities.Journeys;
 using NavigationModule.Journeys.Models.Exceptions.Journeys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NavigationModule.Journeys.Services.Foundations.Journeys
 {
@@ -71,7 +66,7 @@ namespace NavigationModule.Journeys.Services.Foundations.Journeys
         {
             if (journey is null)
             {
-                throw new NotFoundJorneyException(journeyId);
+                throw new NotFoundJourneyException(journeyId);
             }
         }
 

@@ -5,17 +5,15 @@ using System.Runtime.Serialization;
 namespace NavigationModule.Journeys.Models.Exceptions.Journeys
 {
     [Serializable]
-    public class NullJourneyException : NetXception, IValidationException
+    public class NotFoundJourneyException : NetXception, IValidationException
     {
-        protected NullJourneyException(
+        public NotFoundJourneyException(Guid routeId)
+            : base(message: $"Couldn't find journey with id: {routeId}.")
+        { }
+
+        protected NotFoundJourneyException(
             SerializationInfo serializationInfo,
             StreamingContext streamingContext) : base(serializationInfo, streamingContext)
         { }
-
-        public NullJourneyException()
-            : base(message: "The journey is empty.") { }
-
-        public NullJourneyException(string message)
-            : base(message) { }
     }
 }

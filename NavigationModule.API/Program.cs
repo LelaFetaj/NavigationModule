@@ -20,6 +20,9 @@ public static class Program
         builder.Services.AddAuthenticationContext();
         builder.Services.AddAuthenticationBrokers();
         builder.Services.AddAuthenticationServices();
+        builder.Services.AddJourneyContext();
+        builder.Services.AddJourneyBrokers();
+        builder.Services.AddJourneyServices();
         builder.Services.AddCustomLogging();
         builder.Services.AddHealthChecks()
             .AddCustomHealthChecks(builder.Configuration);

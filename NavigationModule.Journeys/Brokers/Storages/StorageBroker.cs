@@ -10,7 +10,7 @@ namespace NavigationModule.Journeys.Brokers.Storages
         public StorageBroker(IConfiguration configuration)
         {
             this.configuration = configuration;
-            //this.Database.Migrate();
+            this.Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,7 +23,7 @@ namespace NavigationModule.Journeys.Brokers.Storages
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = this.configuration
-                .GetConnectionString(name: "DefaultConnection");
+                .GetConnectionString(name: "JourneyConnection");
 
             optionsBuilder.UseNpgsql(connectionString);
         }

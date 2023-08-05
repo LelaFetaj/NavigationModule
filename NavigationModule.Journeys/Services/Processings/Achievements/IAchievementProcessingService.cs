@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NavigationModule.Journeys.Models.DTOs.Journeys;
 
 namespace NavigationModule.Journeys.Services.Processings.Achievements
 {
     public interface IAchievementProcessingService
     {
+        Task UpsertAchievementAsync(JourneyRequest journeyRequest);
     }
 }

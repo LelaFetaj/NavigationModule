@@ -11,6 +11,13 @@ namespace NavigationModule.Journeys.Brokers.Storages
             {
                 journey.HasIndex(x => x.UserId);
                 journey.HasIndex(x => x.Id);
+                journey.HasIndex(x => x.ArrivalDate);
+
+                journey.Property(l => l.StartingPoint)
+                    .HasColumnType("jsonb");
+
+                journey.Property(l => l.ArrivalPoint)
+                    .HasColumnType("jsonb");
             });
         }
     }

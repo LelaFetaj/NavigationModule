@@ -1,13 +1,11 @@
-﻿using System.Linq.Expressions;
-using System.Security.Claims;
-using Journeys.API.Models.Entities.Waypoints;
-using Microsoft.AspNetCore.Http;
-using NavigationModule.Journeys.Infrastructure.ContextAccessors;
-using NavigationModule.Journeys.Infrastructure.Mappings;
+﻿using Microsoft.AspNetCore.Http;
+using NavigationModule.Journeys.Models.DTOs.Filters;
 using NavigationModule.Journeys.Models.DTOs.Journeys;
+using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;
-using NavigationModule.Journeys.Models.Filters;
 using NavigationModule.Journeys.Services.Foundations.Journeys;
+using System.Linq.Expressions;
+using System.Security.Claims;
 
 namespace NavigationModule.Journeys.Services.Processings.Journeys
 {
@@ -19,17 +17,18 @@ namespace NavigationModule.Journeys.Services.Processings.Journeys
         public JourneyProcessingService(IJourneyService journeyService, IHttpContextAccessor httpContextAccessor)
         {
             this.journeyService = journeyService;
-            this.httpContextAccessor=httpContextAccessor;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async ValueTask<Journey> AddJourneyAsync(JourneyRequest journeyRequest)
         {
-            string userid =
+            string userId =
                 this.httpContextAccessor.HttpContext.User.FindFirst(
                     type: ClaimTypes.NameIdentifier)?.Value;
 
             var journey = new Journey
             {
+                UserId = userId,
                 Distance = journeyRequest.Distance,
                 StartingDate = journeyRequest.StartingDate,
                 ArrivalDate = journeyRequest.ArrivalDate,
@@ -37,100 +36,102 @@ namespace NavigationModule.Journeys.Services.Processings.Journeys
                 ArrivalPoint = journeyRequest.ArrivalPoint
             };
 
-            await this.journeyService.AddJourneyAsync(journey);
-
-            return journey;
+            return await this.journeyService.AddJourneyAsync(journey);
         }
 
-        public async ValueTask<JourneyResponse> UpsertJourneyAsync(JourneyRequest journeyRequest)
-        {
-            string userId = this.workContext.ToggId;
-
-            Journey maybeJourney = await this.journeyService.RetrieveJourneyByIdAsync(
-                journeyId: journeyRequest.Id);
-
-            if (maybeJourney is null)
-            {
-                Journey newJourney = journeyRequest?.ToEntity();
-                newJourney.UserId = userId;
-
-                await this.journeyService.AddJourneyAsync(newJourney);
-
-                return newJourney?.ToJourneyResponse();
-            }
-
-            var updateDefinition = maybeJourney.CreateUpdateDefinition(journeyRequest);
-
-            Journey updatedJourney = await this.journeyService.ModifyJourneyAsync(maybeJourney, updateDefinition);
-
-            return updatedJourney?.ToJourneyResponse();
-        }
-
-        public async ValueTask<FilteredResponse<JourneyResponse>> RetrieveFilteredJourneys(
-            JourneyFilter filters)
-        {
-            var response = new FilteredResponse<JourneyResponse>();
-
-            Expression<Func<Journey, bool>> searchCondition = x =>
-                (string.IsNullOrWhiteSpace(filters.ToggId) || x.UserId == filters.ToggId)
-                && (filters.StartDate == null || x.ArrivalDate >= filters.StartDate)
-                && (filters.EndDate == null || x.ArrivalDate <= filters.EndDate);
-
-            var pagination = new Pagination
-            {
-                SortBy = nameof(Journey.ArrivalDate),
-                OrderByDescending = filters.OrderByDesceding,
-                Page = filters.Page,
-                PageSize = filters.PageSize
-            };
-
-            var (journeys, count) =
-                await this.journeyService.RetrieveJourneysAsync(searchCondition, pagination);
-
-            if (journeys is not null)
-            {
-                response.Count = count;
-                response.FilteredCollection = journeys.ToJourneyListResponse();
-            }
-
-            return response;
-        }
-
-        public async ValueTask<IReadOnlyList<JourneyResponse>> RetrieveJourneysAsync(
+        public async ValueTask<IReadOnlyList<Journey>> RetrieveJourneysAsync(
             int page = 1,
             int pagesize = 0,
             bool orderByDescending = true)
         {
-            string userId = this.workContext.ToggId;
+            string userId =
+                this.httpContextAccessor.HttpContext.User.FindFirst(
+                    type: ClaimTypes.NameIdentifier)?.Value;
 
             Expression<Func<Journey, bool>> searchCondition =
                 vehicle => vehicle.UserId == userId;
 
-            var pagination = new Pagination
+            var pagination = new Pagination<Journey, DateTimeOffset>
             {
-                SortBy = nameof(Journey.ArrivalPoint),
-                OrderByDescending = orderByDescending,
+                OrderBy = x => x.ArrivalDate,
                 Page = page,
-                PageSize = pagesize > 0 ? pagesize : 0
+                PageSize = pagesize,
+                OrderByDescending = orderByDescending,
             };
 
             var (journeys, _) =
-                await this.journeyService.RetrieveJourneysAsync(searchCondition, pagination);
+                await this.journeyService.RetrieveFilteredJourneysAsync(searchCondition, pagination);
 
             if (journeys is null || journeys.Count <= 0)
             {
-                return Array.Empty<JourneyResponse>();
+                return Array.Empty<Journey>();
             }
 
-            return journeys.ToJourneyListResponse();
+            return journeys;
         }
 
-        public async ValueTask<JourneyResponse> RetrieveLatestJourneyAsync()
+        public async ValueTask<IReadOnlyList<Journey>> RetrieveJourneysAsync(
+            string userId,
+            int page = 1,
+            int pagesize = 0,
+            bool orderByDescending = true)
         {
-            string userId = this.workContext.ToggId;
-            var journey = await this.journeyService.RetrieveLatestJourneyByUserIdAsync(userId);
+            Expression<Func<Journey, bool>> searchCondition = journey => 
+                string.IsNullOrWhiteSpace(userId) || journey.UserId == userId;
 
-            return journey?.ToJourneyResponse();
+            var pagination = new Pagination<Journey, DateTimeOffset>
+            {
+                OrderBy = x => x.ArrivalDate,
+                Page = page,
+                PageSize = pagesize,
+                OrderByDescending = orderByDescending,
+            };
+
+            var (journeys, _) =
+                await this.journeyService.RetrieveFilteredJourneysAsync(searchCondition, pagination);
+
+            if (journeys is null || journeys.Count <= 0)
+            {
+                return Array.Empty<Journey>();
+            }
+
+            return journeys;
+        }
+
+        public async ValueTask<Journey> RetrieveJourneyByIdAsync(Guid journeyId)
+        {
+            return await this.journeyService.RetrieveJourneyByIdAsync(journeyId);
+        }
+
+        public async ValueTask<Journey> RemoveJourneyByIdAsync(Guid journeyId)
+        {
+            return await this.journeyService.RemoveJourneyByIdAsync(journeyId);
+        }
+
+        public async ValueTask<IReadOnlyList<UserStats>> RetrieveJourneyStatsAsync(JourneyFilter filters)
+        {
+            Expression<Func<Journey, bool>> searchCondition = journey =>
+                (string.IsNullOrWhiteSpace(filters.UserId) || journey.UserId == filters.UserId)
+                && journey.ArrivalDate.Year == filters.Year 
+                && journey.ArrivalDate.Month == (int)filters.Month;
+            
+            var pagination = new Pagination<UserStats, double>
+            {
+                OrderBy = x => x.TotalDistance,
+                Page = filters.Page,
+                PageSize = filters.PageSize,
+                OrderByDescending = filters.OrderByDesceding,
+            };
+
+            List<UserStats> userStats = 
+                await this.journeyService.RetrieveJourneyStatsAsync(searchCondition, pagination);
+
+            if (userStats is null || userStats.Count <= 0)
+            {
+                return Array.Empty<UserStats>();
+            }
+
+            return userStats;
         }
     }
 }

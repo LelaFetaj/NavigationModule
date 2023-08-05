@@ -1,4 +1,5 @@
-﻿using NavigationModule.Journeys.Models.Entities.Journeys;
+﻿using NavigationModule.Journeys.Models.DTOs.UserStats;
+using NavigationModule.Journeys.Models.Entities.Journeys;
 using NavigationModule.Journeys.Models.Exceptions.Journeys;
 using Npgsql;
 
@@ -9,6 +10,7 @@ namespace NavigationModule.Journeys.Services.Foundations.Journeys
         private delegate ValueTask<Journey> ReturningJourneyFunction();
         private delegate ValueTask<bool> ReturningBoolFunction();
         private delegate ValueTask<(List<Journey>, long count)> ReturningJourneysFunction();
+        private delegate ValueTask<List<UserStats>> ReturningUserStatsFunction();
 
         private async ValueTask<Journey> TryCatch(ReturningJourneyFunction returningJourneyFunction)
         {
@@ -48,6 +50,23 @@ namespace NavigationModule.Journeys.Services.Foundations.Journeys
             try
             {
                 return await returningBoolFunction();
+            }
+            catch (PostgresException postgresException)
+            {
+                throw CreateAndLogServiceException(postgresException);
+            }
+            catch (Exception exception)
+            {
+                throw CreateAndLogServiceException(exception);
+            }
+        }
+
+        private async ValueTask<List<UserStats>> TryCatch(
+            ReturningUserStatsFunction returningUserStatFunction)
+        {
+            try
+            {
+                return await returningUserStatFunction();
             }
             catch (PostgresException postgresException)
             {

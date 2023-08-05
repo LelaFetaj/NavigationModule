@@ -1,4 +1,5 @@
-﻿using NavigationModule.Journeys.Models.DTOs.Journeys;
+﻿using NavigationModule.Journeys.Models.DTOs.Filters;
+using NavigationModule.Journeys.Models.DTOs.Journeys;
 using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;
 
@@ -18,10 +19,6 @@ namespace NavigationModule.Journeys.Services.Orchestrations.Journeys
             int page = 1,
             int pagesize = 0,
             bool orderByDescending = true);
-        ValueTask<IReadOnlyList<UserStats>> GetJourneysStatsAsync(
-            string userId,
-            int page = 1,
-            int pagesize = 0,
-            bool orderByDescending = true);
+        ValueTask<IReadOnlyList<UserStats>> GetJourneysStatsAsync(JourneyFilter filters);
     }
 }

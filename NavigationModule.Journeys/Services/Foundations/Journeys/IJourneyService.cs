@@ -1,20 +1,20 @@
-﻿using NavigationModule.Journeys.Models.Entities.Journeys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using NavigationModule.Journeys.Models.DTOs.Filters;
+using NavigationModule.Journeys.Models.DTOs.UserStats;
+using NavigationModule.Journeys.Models.Entities.Journeys;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NavigationModule.Journeys.Services.Foundations.Journeys
 {
     public interface IJourneyService
     {
-        ValueTask<bool> AddJourneyAsync(Journey journey);
-        ValueTask<(List<Journey>, long count)> RetrieveJourneysAsync(
-            Expression<Func<Journey, bool>> searchCondition);
-        ValueTask<Journey> RetrieveJourneyByIdAsync(string journeyId);
-        ValueTask<Journey> RetrieveLatestJourneyByUserIdAsync(string userId);
-        ValueTask<Journey> ModifyJourneyAsync(Journey journey);
+        ValueTask<Journey> AddJourneyAsync(Journey journey);
+        ValueTask<(List<Journey> journeys, long count)> RetrieveFilteredJourneysAsync(
+            Expression<Func<Journey, bool>> searchCondition, 
+            Pagination<Journey, DateTimeOffset> pagination);
+        ValueTask<Journey> RetrieveJourneyByIdAsync(Guid journeyId);
+        ValueTask<Journey> RemoveJourneyByIdAsync(Guid journeyId);
+        ValueTask<List<UserStats>> RetrieveJourneyStatsAsync(
+            Expression<Func<Journey, bool>> searchCondition,
+            Pagination<UserStats, double> pagination);
     }
 }

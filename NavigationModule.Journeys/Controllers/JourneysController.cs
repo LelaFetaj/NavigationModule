@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NavigationModule.Authentication.Infrastructures.Authorizations;
+using NavigationModule.Journeys.Models.DTOs.Filters;
 using NavigationModule.Journeys.Models.DTOs.Journeys;
 using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;
@@ -48,6 +50,7 @@ namespace NavigationModule.Journeys.Controllers
 
         [HttpGet("filter")]
         [ProducesResponseType(typeof(IReadOnlyList<Journey>), (int)HttpStatusCode.OK)]
+        [Authorization(AuthorizationType.All, "Admin")]
         public async ValueTask<ActionResult<IReadOnlyList<Journey>>> FilterJourneys(
             string userId,
             int? page,
@@ -63,17 +66,11 @@ namespace NavigationModule.Journeys.Controllers
 
         [HttpGet("stats")]
         [ProducesResponseType(typeof(IReadOnlyList<UserStats>), (int)HttpStatusCode.OK)]
+        [Authorization(AuthorizationType.All, "Admin")]
         public async ValueTask<ActionResult<IReadOnlyList<UserStats>>> GetJourneyStats(
-            string userId,
-            int? page,
-            int? pageSize,
-            bool orderByDesceding = true)
+            [FromQuery] JourneyFilter filters)
         {
-            return Ok(await this.journeyOrchestrationService.GetJourneysStatsAsync(
-                userId,
-                page ?? 1,
-                pageSize ?? 0,
-                orderByDesceding));
+            return Ok(await this.journeyOrchestrationService.GetJourneysStatsAsync(filters));
         }
     }
 }

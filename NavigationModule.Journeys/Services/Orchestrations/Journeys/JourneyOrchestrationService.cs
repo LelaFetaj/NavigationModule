@@ -1,4 +1,5 @@
-﻿using NavigationModule.Journeys.Models.DTOs.Journeys;
+﻿using NavigationModule.Journeys.Models.DTOs.Filters;
+using NavigationModule.Journeys.Models.DTOs.Journeys;
 using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;
 using NavigationModule.Journeys.Services.Processings.Achievements;
@@ -43,7 +44,7 @@ namespace NavigationModule.Journeys.Services.Orchestrations.Journeys
             await this.journeyProcessingService.RetrieveJourneyByIdAsync(journeyId);
 
         public async ValueTask<Journey> RemoveJourneyByIdAsync(Guid journeyId) =>
-            await this.journeyProcessingService.RetrieveJourneyByIdAsync(journeyId);
+            await this.journeyProcessingService.RemoveJourneyByIdAsync(journeyId);
 
         public async ValueTask<IReadOnlyList<Journey>> FilterJourneysAsync(
             string userId,
@@ -58,17 +59,9 @@ namespace NavigationModule.Journeys.Services.Orchestrations.Journeys
                 orderByDescending);
         }
 
-        public async ValueTask<IReadOnlyList<UserStats>> GetJourneysStatsAsync(
-            string userId,
-            int page = 1,
-            int pagesize = 0,
-            bool orderByDescending = true)
+        public async ValueTask<IReadOnlyList<UserStats>> GetJourneysStatsAsync(JourneyFilter filters)
         {
-            return await this.journeyProcessingService.RetrieveJourneyStatsAsync(
-                userId,
-                page,
-                pagesize,
-                orderByDescending);
+            return await this.journeyProcessingService.RetrieveJourneyStatsAsync(filters);
         }
     }
 }

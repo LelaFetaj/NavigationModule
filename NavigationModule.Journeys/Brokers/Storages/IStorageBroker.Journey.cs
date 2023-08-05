@@ -1,4 +1,5 @@
 ﻿using NavigationModule.Journeys.Models.DTOs.Filters;
+using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,9 @@ namespace NavigationModule.Journeys.Brokers.Storages
         ValueTask<Journey> SelectJourneyByIdAsync(Guid journeyId);
         ValueTask<Journey> UpdateJourneyAsync(Journey journey);
         ValueTask<Journey> DeleteJourneyAsync(Journey journey);
+        ValueTask<List<UserStats>> SelectJourneyStatsAsync(
+            Expression<Func<Journey, bool>> searchCondition,
+            Pagination<UserStats, double> pagination);
 
     }
 }
