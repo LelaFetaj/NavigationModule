@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigationModule.Journeys",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationModule.Infrastructure", "NavigationModule.Infrastructure\NavigationModule.Infrastructure.csproj", "{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigationModule.Journeys.Tests.Unit", "NavigationModule.Journeys.Tests.Unit\NavigationModule.Journeys.Tests.Unit.csproj", "{27B408E6-DEA1-4EA6-8B61-34FD27DC08EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27B408E6-DEA1-4EA6-8B61-34FD27DC08EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27B408E6-DEA1-4EA6-8B61-34FD27DC08EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27B408E6-DEA1-4EA6-8B61-34FD27DC08EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27B408E6-DEA1-4EA6-8B61-34FD27DC08EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
