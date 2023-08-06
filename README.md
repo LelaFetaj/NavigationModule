@@ -50,4 +50,10 @@ To ensure a professional and scalable solution, the development must adhere to t
 
 **Swagger Documentation:** Provide comprehensive Swagger documentation for all API endpoints to aid developers in understanding and using the APIs effectively.
 <br /><br />
+
+**Bonus Features:** 
+While not mandatory, the following bonus features will add significant value to the project:
+**1. Caching Implementation:** Implement caching techniques to optimize data retrieval and improve system performance.
+<br /><br />
+
 <img src="https://github.com/darsaveli/Mariam/blob/main/1479814528_webarebears.gif" width="385px" align="center">
