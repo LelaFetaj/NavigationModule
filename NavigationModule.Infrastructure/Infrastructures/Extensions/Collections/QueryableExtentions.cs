@@ -1,7 +1,6 @@
-﻿using NavigationModule.Authentication.Models.Exceptions.Common;
-using NavigationModule.Authentication.Models.Filters;
+﻿using NavigationModule.Infrastructure.Models.Filters;
 
-namespace NavigationModule.Authentication.Infrastructures.Extensions.Collections
+namespace NavigationModule.Infrastructure.Extentions
 {
     public static class QueryableExtensions
     {
@@ -10,12 +9,10 @@ namespace NavigationModule.Authentication.Infrastructures.Extensions.Collections
             Pagination<T, TKey> pagination)
         {
             const int defaultPageNumber = 1;
-            const int defaultPageSize = 10;
 
             if (query is null || pagination is null)
             {
-                throw new InvalidArgumentException(
-                    parameterName: nameof(query));
+                throw new ArgumentNullException(nameof(query));
             }
 
             // It is necessary sort items before it
@@ -25,7 +22,7 @@ namespace NavigationModule.Authentication.Infrastructures.Extensions.Collections
 
             if (pagination.PageSize <= 0)
             {
-                pagination.PageSize = defaultPageSize;
+                return query;
             }
 
             // Check if the page number is greater then zero - otherwise use default page number

@@ -1,9 +1,9 @@
-using System.Linq.Expressions;
 using Microsoft.AspNetCore.Identity;
-using NetLoggings.Brokers.Loggings;
 using NavigationModule.Authentication.Brokers.Managements.Users;
 using NavigationModule.Authentication.Models.Entities.Users;
-using NavigationModule.Authentication.Models.Filters;
+using NavigationModule.Infrastructure.Models.Filters;
+using NetLoggings.Brokers.Loggings;
+using System.Linq.Expressions;
 
 namespace NavigationModule.Authentication.Services.Foundations.Users
 {

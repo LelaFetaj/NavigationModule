@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace NavigationModule.Authentication.Infrastructures.Authorizations
+namespace NavigationModule.Infrastructure.Infrastructures.Authorizations
 {
     public class AuthorizationAttribute : TypeFilterAttribute
     {

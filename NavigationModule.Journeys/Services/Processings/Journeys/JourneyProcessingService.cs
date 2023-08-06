@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using NavigationModule.Infrastructure.Models.Filters;
 using NavigationModule.Journeys.Models.DTOs.Filters;
 using NavigationModule.Journeys.Models.DTOs.Journeys;
 using NavigationModule.Journeys.Models.DTOs.UserStats;

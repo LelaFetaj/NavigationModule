@@ -6,7 +6,7 @@ using Microsoft.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
 
-namespace NavigationModule.Authentication.Infrastructures.Authorizations
+namespace NavigationModule.Infrastructure.Infrastructures.Authorizations
 {
     public class AuthorizationFilter : IAuthorizationFilter
     {
@@ -27,7 +27,7 @@ namespace NavigationModule.Authentication.Infrastructures.Authorizations
 
             IEnumerable<Claim> claims = GetClaimsFromToken(httpContext);
 
-            string[] providedRoles = DeserializeValueFromType(
+            string[]? providedRoles = DeserializeValueFromType(
                 claims,
                 claimType: "role");
 
@@ -37,7 +37,7 @@ namespace NavigationModule.Authentication.Infrastructures.Authorizations
                 return;
             }
 
-            bool isAuthorized = (authorizationType == AuthorizationType.Any)
+            bool isAuthorized = authorizationType == AuthorizationType.Any
                 ? roleClaims.Any(role => providedRoles.Contains(role))
                 : roleClaims.All(role => providedRoles.Contains(role));
 
@@ -49,27 +49,27 @@ namespace NavigationModule.Authentication.Infrastructures.Authorizations
 
         private static IEnumerable<Claim> GetClaimsFromToken(HttpContext httpContext)
         {
-            string token = httpContext.Request.Headers[HeaderNames.Authorization].FirstOrDefault();
+            string? token = httpContext?.Request?.Headers[HeaderNames.Authorization].FirstOrDefault();
 
             if (string.IsNullOrWhiteSpace(token))
             {
-                return default;
+                return Array.Empty<Claim>();
             }
 
             var handler = new JsonWebTokenHandler();
 
             token = token.Replace("Bearer ", "");
 
-            return handler.ReadJsonWebToken(token)?.Claims;
+            return handler.ReadJsonWebToken(token).Claims;
         }
 
-        private static string[] DeserializeValueFromType(IEnumerable<Claim> claims, string claimType)
+        private static string[]? DeserializeValueFromType(IEnumerable<Claim> claims, string claimType)
         {
-            string tokenClaimJson = claims.FirstOrDefault(x => x.Type == claimType)?.Value;
+            string? tokenClaimJson = claims?.FirstOrDefault(x => x.Type == claimType)?.Value;
 
             if (string.IsNullOrWhiteSpace(tokenClaimJson))
             {
-                return default;
+                return Array.Empty<string>();
             }
 
             return JsonSerializer.Deserialize<string[]>(

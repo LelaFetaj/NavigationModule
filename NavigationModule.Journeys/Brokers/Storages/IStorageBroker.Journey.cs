@@ -1,12 +1,7 @@
-﻿using NavigationModule.Journeys.Models.DTOs.Filters;
+﻿using NavigationModule.Infrastructure.Models.Filters;
 using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NavigationModule.Journeys.Brokers.Storages
 {

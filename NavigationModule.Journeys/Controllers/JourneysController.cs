@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NavigationModule.Authentication.Infrastructures.Authorizations;
+using NavigationModule.Infrastructure.Infrastructures.Authorizations;
 using NavigationModule.Journeys.Models.DTOs.Filters;
 using NavigationModule.Journeys.Models.DTOs.Journeys;
 using NavigationModule.Journeys.Models.DTOs.UserStats;

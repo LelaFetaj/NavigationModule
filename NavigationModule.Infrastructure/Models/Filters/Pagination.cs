@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NavigationModule.Journeys.Models.DTOs.Filters
+namespace NavigationModule.Infrastructure.Models.Filters
 {
     public class Pagination<T, TKey>
     {

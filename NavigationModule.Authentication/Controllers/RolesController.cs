@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NavigationModule.Authentication.Infrastructures.Authorizations;
 using NavigationModule.Authentication.Models.DTOs.Roles;
 using NavigationModule.Authentication.Models.Entities.Roles;
 using NavigationModule.Authentication.Services.Processings.Roles;
+using NavigationModule.Infrastructure.Infrastructures.Authorizations;
 
 namespace NavigationModule.Authentication.Controllers
 {

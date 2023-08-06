@@ -1,4 +1,5 @@
-﻿using NavigationModule.Journeys.Brokers.Storages;
+﻿using NavigationModule.Infrastructure.Models.Filters;
+using NavigationModule.Journeys.Brokers.Storages;
 using NavigationModule.Journeys.Models.DTOs.Filters;
 using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;

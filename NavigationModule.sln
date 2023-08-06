@@ -11,6 +11,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavigationModule.Journeys", "NavigationModule.Journeys\NavigationModule.Journeys.csproj", "{13247D58-2229-4D32-8A41-85350494DFC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationModule.Infrastructure", "NavigationModule.Infrastructure\NavigationModule.Infrastructure.csproj", "{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{13247D58-2229-4D32-8A41-85350494DFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13247D58-2229-4D32-8A41-85350494DFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13247D58-2229-4D32-8A41-85350494DFC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC8B53A1-21C1-4CAB-9EB7-BD13AC456C30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

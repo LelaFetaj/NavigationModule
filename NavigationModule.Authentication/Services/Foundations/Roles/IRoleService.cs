@@ -1,6 +1,6 @@
-using System.Linq.Expressions;
 using NavigationModule.Authentication.Models.Entities.Roles;
-using NavigationModule.Authentication.Models.Filters;
+using NavigationModule.Infrastructure.Models.Filters;
+using System.Linq.Expressions;
 
 namespace NavigationModule.Authentication.Services.Foundations.Roles
 {

@@ -1,9 +1,9 @@
-using System.Linq.Expressions;
 using NavigationModule.Authentication.Brokers.DateTimes;
 using NavigationModule.Authentication.Models.DTOs.Users;
 using NavigationModule.Authentication.Models.Entities.Users;
-using NavigationModule.Authentication.Models.Filters;
 using NavigationModule.Authentication.Services.Foundations.Users;
+using NavigationModule.Infrastructure.Models.Filters;
+using System.Linq.Expressions;
 
 namespace NavigationModule.Authentication.Services.Processings.Users
 {

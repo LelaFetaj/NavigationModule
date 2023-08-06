@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using NavigationModule.Journeys.Infrastructure.CollectionExtentions;
-using NavigationModule.Journeys.Models.DTOs.Filters;
+using NavigationModule.Infrastructure.Extentions;
+using NavigationModule.Infrastructure.Models.Filters;
 using NavigationModule.Journeys.Models.DTOs.UserStats;
 using NavigationModule.Journeys.Models.Entities.Journeys;
 using System.Linq.Expressions;
@@ -39,7 +39,7 @@ namespace NavigationModule.Journeys.Brokers.Storages
                     .ToListAsync(),
                 count);
         }
-        
+
         public async ValueTask<List<UserStats>> SelectJourneyStatsAsync(
             Expression<Func<Journey, bool>> searchCondition,
             Pagination<UserStats, double> pagination)

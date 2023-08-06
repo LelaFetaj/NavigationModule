@@ -25,4 +25,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NavigationModule.Infrastructure\NavigationModule.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

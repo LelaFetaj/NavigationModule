@@ -1,8 +1,8 @@
-using System.Linq.Expressions;
-using NetLoggings.Brokers.Loggings;
 using NavigationModule.Authentication.Brokers.Managements.Roles;
 using NavigationModule.Authentication.Models.Entities.Roles;
-using NavigationModule.Authentication.Models.Filters;
+using NavigationModule.Infrastructure.Models.Filters;
+using NetLoggings.Brokers.Loggings;
+using System.Linq.Expressions;
 
 namespace NavigationModule.Authentication.Services.Foundations.Roles
 {
